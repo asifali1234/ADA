@@ -1,4 +1,4 @@
-package com.genesis.team8.ada.news;
+package com.genesis.team8.ada.newsActivity;
 
 /**
  * Created by asif ali on 14/01/17.

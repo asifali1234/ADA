@@ -1,4 +1,4 @@
-package com.genesis.team8.ada;
+package com.genesis.team8.ada.newsActivity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

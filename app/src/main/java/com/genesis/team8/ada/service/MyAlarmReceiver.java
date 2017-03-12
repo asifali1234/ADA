@@ -1,8 +1,10 @@
-package com.genesis.team8.ada;
+package com.genesis.team8.ada.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import com.genesis.team8.ada.service.AccidentService;
 
 /**
  * Created by asif ali on 14/01/17.

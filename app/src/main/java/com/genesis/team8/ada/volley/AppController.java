@@ -1,4 +1,4 @@
-package com.genesis.team8.ada;
+package com.genesis.team8.ada.volley;
 
 /**
  * Created by asif ali on 14/01/17.

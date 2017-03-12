@@ -1,4 +1,4 @@
-package com.genesis.team8.ada;
+package com.genesis.team8.ada.service;
 
 import android.Manifest;
 import android.app.IntentService;
@@ -21,6 +21,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.genesis.team8.ada.volley.AppController;
+import com.genesis.team8.ada.MainActivity;
+import com.genesis.team8.ada.R;
 
 import org.json.JSONObject;
 

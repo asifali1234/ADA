@@ -15,18 +15,18 @@
 
     <application
         android:allowBackup="true"
-        android:name=".AppController"
+        android:name=".volley.AppController"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         tools:replace="android:icon" >
         <receiver
-            android:name=".MyAlarmReceiver"
+            android:name=".service.MyAlarmReceiver"
             android:process=":remote" >
         </receiver>
 
         <service
-            android:name=".AccidentService"
+            android:name=".service.AccidentService"
             android:exported="false" />
 
         <activity
@@ -39,11 +39,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MapsActivity"
+            android:name=".mapLocationsActivity.ImportantLocations"
             android:label="yaya" >
         </activity>
         <activity
-            android:name=".analyse"
+            android:name=".AnalyzeActivity.Analyze"
             android:label="yaya" >
         </activity>
         <activity
@@ -51,17 +51,17 @@
             android:label="yaya" >
         </activity>
         <activity
-            android:name=".graph"
+            android:name=".AnalyzeActivity.ViewGraph"
             android:configChanges="orientation|keyboardHidden"
             android:label="yaya"
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name=".GetContacts"
+            android:name=".getContactActivity.GetContacts"
             android:label="@string/title_activity_menuscreen" >
         </activity>
         <activity
-            android:name=".news.NewsActivity"
+            android:name=".newsActivity.NewsActivity"
             android:label="@string/title_activity_menuscreen" >
         </activity>
 
@@ -70,7 +70,7 @@
             android:value="AIzaSyAm7IvC5DpVPeKLTeX0DUT8tYOqHRaccrA" />
 
         <activity
-            android:name=".ambulanceway"
+            android:name=".AmbulanceOnWayActivity.AmbulanceOnWay"
             android:label="@string/title_activity_ambulance_on_way" >
         </activity>
         <activity

@@ -1,4 +1,4 @@
-package com.genesis.team8.ada;
+package com.genesis.team8.ada.mapLocationsActivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.genesis.team8.ada.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -32,7 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Created by asif ali on 14/01/17.
  */
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+public class ImportantLocations extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
@@ -127,7 +128,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("onClick", url);
                 GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
                 getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(MapsActivity.this,"Hospitals", Toast.LENGTH_LONG).show();
+                Toast.makeText(ImportantLocations.this,"Hospitals", Toast.LENGTH_LONG).show();
             }
         });
         Button Bankbtn = (Button) findViewById(R.id.button2);
@@ -144,7 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("onClick", url);
                 GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
                 getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(MapsActivity.this,"Workshop", Toast.LENGTH_LONG).show();
+                Toast.makeText(ImportantLocations.this,"Workshop", Toast.LENGTH_LONG).show();
             }
         });
         Button Policebtn = (Button) findViewById(R.id.button3);
@@ -161,7 +162,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("onClick", url);
                 GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
                 getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(MapsActivity.this,"Police Station", Toast.LENGTH_LONG).show();
+                Toast.makeText(ImportantLocations.this,"Police Station", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -229,7 +230,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-        Toast.makeText(MapsActivity.this,"An Ambulance Has Been Dispatched To You!", Toast.LENGTH_LONG).show();
+        Toast.makeText(ImportantLocations.this,"An Ambulance Has Been Dispatched To You!", Toast.LENGTH_LONG).show();
 
         Log.d("onLocationChanged", String.format("latitude:%.3f longitude:%.3f",latitude,longitude));
 

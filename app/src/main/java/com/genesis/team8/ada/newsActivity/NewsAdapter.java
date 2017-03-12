@@ -1,4 +1,4 @@
-package com.genesis.team8.ada.news;
+package com.genesis.team8.ada.newsActivity;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.genesis.team8.ada.DownloadThumbnailTask;
 import com.genesis.team8.ada.R;
 
 import java.util.ArrayList;

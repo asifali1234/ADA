@@ -1,7 +1,9 @@
-package com.genesis.team8.ada;
+package com.genesis.team8.ada.AnalyzeActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.genesis.team8.ada.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -22,6 +25,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -30,7 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Created by asif ali on 14/01/17.
  */
 
-public class wactivity extends FragmentActivity implements OnMapReadyCallback,
+public class Analyze extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener, GoogleMap.OnMapClickListener {
@@ -43,11 +48,11 @@ public class wactivity extends FragmentActivity implements OnMapReadyCallback,
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workshop);
+        setContentView(R.layout.analmap);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -94,7 +99,7 @@ public class wactivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         //Initialize Google Play Services
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -109,60 +114,11 @@ public class wactivity extends FragmentActivity implements OnMapReadyCallback,
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
+        // googleMap.addMarker(new MarkerOptions().position(kochi)
+        //      .title("Marker in Kochi"));
+        //googleMap.moveCamera(CameraUpdateFactory.newLatLng(kochi));
         mMap.setOnMapClickListener(this);
 
-       /* Button Atmbtn = (Button) findViewById(R.id.button1);
-        Atmbtn.performClick();
-        Atmbtn.setOnClickListener(new View.OnClickListener() {
-            String Hospital = "hospital";
-            @Override
-            public void onClick(View v) {
-                Log.d("onClick", "Button is Clicked");
-                mMap.clear();
-                String url = getUrl(latitude, longitude, Hospital);
-                Object[] DataTransfer = new Object[2];
-                DataTransfer[0] = mMap;
-                DataTransfer[1] = url;
-                Log.d("onClick", url);
-                GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
-                getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(ImportantLocations.this,"Hospitals", Toast.LENGTH_LONG).show();
-            }
-        });
-        Button Bankbtn = (Button) findViewById(R.id.button2);
-        Bankbtn.setOnClickListener(new View.OnClickListener() {
-            String Workshop = "bike_repair";
-            @Override
-            public void onClick(View v) {
-                Log.d("onClick", "Button is Clicked");
-                mMap.clear();
-                String url = getUrl(latitude, longitude, Workshop);
-                Object[] DataTransfer = new Object[2];
-                DataTransfer[0] = mMap;
-                DataTransfer[1] = url;
-                Log.d("onClick", url);
-                GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
-                getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(ImportantLocations.this,"Workshop", Toast.LENGTH_LONG).show();
-            }
-        });
-        Button Policebtn = (Button) findViewById(R.id.button3);
-        Policebtn.setOnClickListener(new View.OnClickListener() {
-            String Police = "police";
-            @Override
-            public void onClick(View v) {
-                Log.d("onClick", "Button is Clicked");
-                mMap.clear();
-                String url = getUrl(latitude, longitude, Police);
-                Object[] DataTransfer = new Object[2];
-                DataTransfer[0] = mMap;
-                DataTransfer[1] = url;
-                Log.d("onClick", url);
-                GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
-                getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(ImportantLocations.this,"Police Station", Toast.LENGTH_LONG).show();
-            }
-        });*/
 
 
     }
@@ -315,9 +271,25 @@ public class wactivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onMapClick(LatLng point) {
         mMap.clear();
+        final double lat=point.latitude;
+        final double longi=point.longitude;
         MarkerOptions marker = new MarkerOptions()
-                .position(new LatLng(point.latitude, point.longitude))
-                .title("Workshop");
+                .position(new LatLng(lat,longi))
+                .title("Analyze Area");
+        Circle circle = mMap.addCircle(new CircleOptions()
+        .center(new LatLng(lat, longi))
+        .radius(2000
+        ).strokeColor(Color.RED).fillColor(Color.GREEN));
         mMap.addMarker(marker);
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Intent intent1 = new Intent(Analyze.this, ViewGraph.class);
+                intent1.putExtra("lat", lat);
+                intent1.putExtra("longi", longi);
+                startActivity(intent1);
+            }
+        });
     }
+
 }

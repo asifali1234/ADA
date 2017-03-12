@@ -1,4 +1,4 @@
-package com.genesis.team8.ada.news;
+package com.genesis.team8.ada.newsActivity;
 
 import android.content.Context;
 import android.content.Intent;

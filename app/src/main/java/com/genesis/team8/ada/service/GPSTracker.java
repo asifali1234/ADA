@@ -1,4 +1,4 @@
-package com.genesis.team8.ada;
+package com.genesis.team8.ada.service;
 
 import android.app.AlertDialog;
 import android.app.Service;

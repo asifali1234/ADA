@@ -1,4 +1,4 @@
-package com.genesis.team8.ada;
+package com.genesis.team8.ada.mapLocationsActivity;
 
 import android.util.Log;
 

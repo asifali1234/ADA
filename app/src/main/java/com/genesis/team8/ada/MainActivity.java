@@ -29,7 +29,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.firebase.client.Firebase;
-import com.genesis.team8.ada.news.NewsActivity;
+import com.genesis.team8.ada.AmbulanceOnWayActivity.AmbulanceOnWay;
+import com.genesis.team8.ada.AnalyzeActivity.Analyze;
+import com.genesis.team8.ada.getContactActivity.GetContacts;
+import com.genesis.team8.ada.mapLocationsActivity.ImportantLocations;
+import com.genesis.team8.ada.newsActivity.NewsActivity;
+import com.genesis.team8.ada.service.GPSTracker;
+import com.genesis.team8.ada.service.MyAlarmReceiver;
+import com.genesis.team8.ada.volley.AppController;
 import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
@@ -202,7 +209,7 @@ scheduleAlarm();
             String message="Help Me, I Have Met With An Accident http://maps.google.com/?q="+lat+","+lng;
            sms.sendTextMessage(phoneNumber, null, message, null, null);
             sensorManager.unregisterListener(this);
-          Intent in = new Intent(this, ambulanceway.class);
+          Intent in = new Intent(this, AmbulanceOnWay.class);
             startActivity(in);
     /*
                     Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
@@ -252,7 +259,7 @@ scheduleAlarm();
             // Ask user to enable GPS/network in settings
             gps.showSettingsAlert();
         }
-        Intent in = new Intent(this, ambulanceway.class);
+        Intent in = new Intent(this, AmbulanceOnWay.class);
         startActivity(in);
 
     }
@@ -334,7 +341,7 @@ scheduleAlarm();
     }
     public void start(int pos)
     {
-       Intent in = new Intent(this, analyse.class);
+       Intent in = new Intent(this, Analyze.class);
         startActivity(in);
     }
     public void map2(int pos)
@@ -349,7 +356,7 @@ scheduleAlarm();
     }
     public void map(int pos)
     {
-        Intent in = new Intent(this, MapsActivity.class);
+        Intent in = new Intent(this, ImportantLocations.class);
         startActivity(in);
     }
     public void news(int pos)

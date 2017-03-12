@@ -1,7 +1,9 @@
-package com.genesis.team8.ada;
+package com.genesis.team8.ada.AmbulanceOnWayActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +13,13 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.genesis.team8.ada.AnalyzeActivity.ViewGraph;
+import com.genesis.team8.ada.R;
+import com.genesis.team8.ada.location;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -22,6 +31,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -30,12 +41,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Created by asif ali on 14/01/17.
  */
 
-public class wactivity extends FragmentActivity implements OnMapReadyCallback,
+public class AmbulanceOnWay extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener, GoogleMap.OnMapClickListener {
-
-    private GoogleMap mMap;
+    String a="";
+    String b="";
+    private static GoogleMap mMap;
     double latitude;
     double longitude;
     private int PROXIMITY_RADIUS =1000;
@@ -43,11 +55,12 @@ public class wactivity extends FragmentActivity implements OnMapReadyCallback,
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workshop);
+        setContentView(R.layout.analmap);
+
+        Toast.makeText(this, "Your Ambulance Is On The Way",Toast.LENGTH_LONG).show();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -66,6 +79,7 @@ public class wactivity extends FragmentActivity implements OnMapReadyCallback,
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
     private boolean CheckGooglePlayServices() {
@@ -92,9 +106,9 @@ public class wactivity extends FragmentActivity implements OnMapReadyCallback,
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         //Initialize Google Play Services
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -108,64 +122,55 @@ public class wactivity extends FragmentActivity implements OnMapReadyCallback,
         else {
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
+        }int n=1;
+
+            Firebase.setAndroidContext(this);
+            String url="https://adaa-45b17.firebaseio.com/CurrentAmbulance/";
+            final Firebase ref = new Firebase(url);
+
+
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+
+                public void onDataChange(DataSnapshot usersSnapshot) {
+                    String a;
+                    String b;
+                    for (DataSnapshot userSnapshot : usersSnapshot.getChildren()) {
+                        location user = userSnapshot.getValue(location.class);
+
+                        a = user.getLat();
+                        b = user.getLng();
+
+                       // plot(a,b);
+                        LatLng kochi= new LatLng(Double.parseDouble(a), Double.parseDouble(b));
+                        MarkerOptions marker= new MarkerOptions().position(kochi)
+                                .title("Your Ambulance Is On The Way")
+                        ;
+
+                        googleMap.addMarker(new MarkerOptions().position(kochi)
+                                .title("Your Ambulance Is On The Way").icon(BitmapDescriptorFactory.fromResource(R.drawable.aa))
+                        );
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(kochi));
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    System.out.println("The read failed: " + firebaseError.getMessage());
+                }
+            });
+        Log.i("AccidentService", "Service running");
+
+
+
         }
-        mMap.setOnMapClickListener(this);
-
-       /* Button Atmbtn = (Button) findViewById(R.id.button1);
-        Atmbtn.performClick();
-        Atmbtn.setOnClickListener(new View.OnClickListener() {
-            String Hospital = "hospital";
-            @Override
-            public void onClick(View v) {
-                Log.d("onClick", "Button is Clicked");
-                mMap.clear();
-                String url = getUrl(latitude, longitude, Hospital);
-                Object[] DataTransfer = new Object[2];
-                DataTransfer[0] = mMap;
-                DataTransfer[1] = url;
-                Log.d("onClick", url);
-                GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
-                getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(ImportantLocations.this,"Hospitals", Toast.LENGTH_LONG).show();
-            }
-        });
-        Button Bankbtn = (Button) findViewById(R.id.button2);
-        Bankbtn.setOnClickListener(new View.OnClickListener() {
-            String Workshop = "bike_repair";
-            @Override
-            public void onClick(View v) {
-                Log.d("onClick", "Button is Clicked");
-                mMap.clear();
-                String url = getUrl(latitude, longitude, Workshop);
-                Object[] DataTransfer = new Object[2];
-                DataTransfer[0] = mMap;
-                DataTransfer[1] = url;
-                Log.d("onClick", url);
-                GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
-                getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(ImportantLocations.this,"Workshop", Toast.LENGTH_LONG).show();
-            }
-        });
-        Button Policebtn = (Button) findViewById(R.id.button3);
-        Policebtn.setOnClickListener(new View.OnClickListener() {
-            String Police = "police";
-            @Override
-            public void onClick(View v) {
-                Log.d("onClick", "Button is Clicked");
-                mMap.clear();
-                String url = getUrl(latitude, longitude, Police);
-                Object[] DataTransfer = new Object[2];
-                DataTransfer[0] = mMap;
-                DataTransfer[1] = url;
-                Log.d("onClick", url);
-                GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
-                getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(ImportantLocations.this,"Police Station", Toast.LENGTH_LONG).show();
-            }
-        });*/
 
 
-    }
+
+
+
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -312,12 +317,30 @@ public class wactivity extends FragmentActivity implements OnMapReadyCallback,
         }
     }
 
+
+
+
     @Override
     public void onMapClick(LatLng point) {
         mMap.clear();
+        final double lat=point.latitude;
+        final double longi=point.longitude;
         MarkerOptions marker = new MarkerOptions()
-                .position(new LatLng(point.latitude, point.longitude))
-                .title("Workshop");
-        mMap.addMarker(marker);
+                .position(new LatLng(lat,longi))
+                .title("Analyze Area");
+        Circle circle = mMap.addCircle(new CircleOptions()
+                .center(new LatLng(lat, longi))
+                .radius(2000
+                ).strokeColor(Color.RED).fillColor(Color.GREEN));
+      //  mMap.addMarker(marker);
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Intent intent1 = new Intent(AmbulanceOnWay.this, ViewGraph.class);
+                intent1.putExtra("lat", lat);
+                intent1.putExtra("longi", longi);
+                startActivity(intent1);
+            }
+        });
     }
 }
