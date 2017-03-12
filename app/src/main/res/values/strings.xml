@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ADA</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_menuscreen">menuscreen</string>
+    <string name="hi">asd</string>
+    <string name="title_activity_otpverify">otpverify</string>
+    <string name="cont">Set Personal Contacts</string>
+    <string name="Near">NearBy Services</string>
+    <string name="Workshops">Workshops</string>
+    <string name="news">News</string>
+    <string name="hiiiiii">Area Analyse</string>
+    <string name="title_activity_ambulance_on_way">AmbulanceOnWay</string>
+</resources>

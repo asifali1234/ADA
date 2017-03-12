@@ -1,0 +1,160 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".GetContacts"
+    android:background="#ffb5f2ff">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout">
+        <TextView android:id="@+id/contact_one"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Enter Contact" />
+        <Button
+
+            android:text="Pick"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bb"
+            android:id="@+id/button_contact_one"
+          />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2">
+
+
+        <TextView android:id="@+id/contact_two"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Enter Contact" />
+        <Button
+
+            android:text="Pick"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bb"
+            android:id="@+id/button_contact_two" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout3">
+
+
+        <TextView android:id="@+id/contact_three"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Enter Contact" />
+        <Button
+
+            android:text="Pick"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bb"
+            android:id="@+id/button_contact_three" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout5">
+
+
+        <TextView android:id="@+id/contact_four"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Enter Contact" />
+        <Button
+
+            android:text="Pick"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bb"
+            android:id="@+id/button_contact_four" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout7">
+
+
+        <TextView android:id="@+id/contact_five"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Enter Contact" />
+        <Button
+
+            android:text="Pick"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bb"
+            android:id="@+id/button_contact_five"
+            />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+       >
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+
+            android:text="Reset Contacts List"
+            android:id="@+id/button_reset"
+
+
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:background="#fff75853"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp" />
+    </RelativeLayout>
+
+</LinearLayout>
