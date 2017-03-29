@@ -47,3 +47,4 @@ dependencies {
     compile 'com.firebase:firebase-client-android:2.5.2+'
     compile files('libs/mpandroidchartlibrary-2-1-6.jar')
 }
+apply plugin: 'com.google.gms.google-services'

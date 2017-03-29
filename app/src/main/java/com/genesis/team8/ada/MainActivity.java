@@ -208,6 +208,28 @@ scheduleAlarm();
 
             String message="Help Me, I Have Met With An Accident http://maps.google.com/?q="+lat+","+lng;
            sms.sendTextMessage(phoneNumber, null, message, null, null);
+
+
+            String y= "t";
+            Firebase.setAndroidContext(this);
+            Firebase ref = new Firebase("https://ad-a-bc752.firebaseio.com/PreviousLocation/");
+
+            //Getting values to store
+
+            //Creating Person object
+            location person = new location();
+
+            //Adding values
+            person.setYes(y);
+            person.setLat(lat);
+            person.setLng(lng);
+            //Storing values to firebase
+            ref.push().setValue(person);
+
+
+
+
+
             sensorManager.unregisterListener(this);
           Intent in = new Intent(this, AmbulanceOnWay.class);
             startActivity(in);
@@ -239,7 +261,7 @@ scheduleAlarm();
             String lngg= Double.toString(longitude);
             String y= "t";
             Firebase.setAndroidContext(this);
-            Firebase ref = new Firebase("https://adaa-45b17.firebaseio.com/PreviousLocation/");
+            Firebase ref = new Firebase("https://ad-a-bc752.firebaseio.com/PreviousLocation/");
 
             //Getting values to store
 

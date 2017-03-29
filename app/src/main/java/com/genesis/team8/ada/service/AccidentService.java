@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,6 +14,7 @@ import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.widget.Toast;
@@ -21,6 +23,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.genesis.team8.ada.location;
+import com.genesis.team8.ada.safe;
+import com.genesis.team8.ada.safefactor;
 import com.genesis.team8.ada.volley.AppController;
 import com.genesis.team8.ada.MainActivity;
 import com.genesis.team8.ada.R;
@@ -28,6 +37,7 @@ import com.genesis.team8.ada.R;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Created by asif ali on 14/01/17.
@@ -58,8 +68,9 @@ public class AccidentService extends IntentService implements SensorEventListene
         // Do the task here
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-
+        Firebase.setAndroidContext(AccidentService.this);
         but();
+
 
     }
 
@@ -68,8 +79,47 @@ public class AccidentService extends IntentService implements SensorEventListene
 
         gps = new GPSTracker(AccidentService.this);
 
-        final String URL = "http://192.168.1.56:3000/scriptMachineLearning";
+        //String url="https://ad-a-bc752.firebaseio.com/safezone/";
+        //final Firebase ref = new Firebase(url);
 
+        System.out.println("service running...............................................");
+
+        /*ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot usersSnapshot) {
+
+                for (DataSnapshot userSnapshot : usersSnapshot.getChildren()) {
+                    safefactor user = userSnapshot.getValue(safefactor.class);
+
+                    a = user.getSafe();
+
+
+                }
+                if (a.equalsIgnoreCase("1")) {
+                    System.out.println("Accident................................Prone Area............");
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });*/
+        Random rand;
+        int randomNum = 1 + (int)(Math.random() * ((1) + 1));
+
+
+        if(randomNum == 2) {
+            System.out.println("222222222222222222222222222222222222222222222222222222222222222222222222222");
+
+            send2("hi");
+        }
+        else
+            System.out.println("111111111111111111111111111111111111111111111111111111111111111");
+
+
+        final String URL = "http://192.168.1.56:3000/scriptMachineLearning";
+        System.out.println("Adfffffffffffffffffffffffffffffffffff");
         // Post params to be sent to the server
         double latitude = gps.getLatitude();
         double longitude = gps.getLongitude();
@@ -126,9 +176,11 @@ public class AccidentService extends IntentService implements SensorEventListene
 
         if (gForce>3)
         {
+            sensorManager.unregisterListener(AccidentService.this);
+
+            System.out.println("geforceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             final Context c = this;
             gps = new GPSTracker(AccidentService.this);
-            sensorManager.unregisterListener(AccidentService.this);
 
 
             if (gps.canGetLocation()) {
@@ -153,15 +205,71 @@ public class AccidentService extends IntentService implements SensorEventListene
                                     + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
 
 
-                            SmsManager sms = SmsManager.getDefault();
+
                             String phoneNumber = "8594014280";
                             String lat = Double.toString(latitude);
                             String lng = Double.toString(longitude);
 
+                            String y= "t";
+
+                            System.out.println("1111111111111111");
+                            System.out.println("1111111111111111");
+                            System.out.println("1111111111111111");
+                            System.out.println("1111111111111111");
+                            System.out.println("1111111111111111");
+                            System.out.println("1111111111111111");
+                            System.out.println("1111111111111111");
+                            System.out.println("1111111111111111");
+                            System.out.println("1111111111111111");
+
+
+
+                            Firebase ref = new Firebase("https://ad-a-bc752.firebaseio.com/PreviousLocation/");
+
+                            //Getting values to store
+
+                            //Creating Person object
+                            location person = new location();
+
+                            //Adding values
+                            person.setYes(y);
+                            person.setLat(lat);
+                            person.setLng(lng);
+                            //Storing values to firebase
+                            ref.push().setValue(person);
+
+
+                            String no="no";
+
+
                             System.out.println("message is being sent");
+
+                            SharedPreferences details = PreferenceManager.getDefaultSharedPreferences(AccidentService.this);
+                            SmsManager sms = SmsManager.getDefault();
+                            if (!no.equals(details.getString("number1", "no")))
+                                sms.sendTextMessage(details.getString("number1", "no"), null, "Help me.I am at: http://maps.google.com/?q=" + lat + "," + lng, null, null);
+                            if (!no.equals(details.getString("number2", "no")))
+                                sms.sendTextMessage(details.getString("number2", "no"), null, "Help me.I am at: http://maps.google.com/?q=" + lat + "," + lng, null, null);
+                            if (!no.equals(details.getString("number3", "no")))
+                                sms.sendTextMessage(details.getString("number3", "no"), null, "Help me.I am at: http://maps.google.com/?q=" + lat + "," + lng, null, null);
+                            if (!no.equals(details.getString("number4", "no")))
+                                sms.sendTextMessage(details.getString("number4", "no"), null, "Help me.I am at: http://maps.google.com/?q=" + lat + "," + lng, null, null);
+                            if (!no.equals(details.getString("number5", "no")))
+                                sms.sendTextMessage(details.getString("number5", "no"), null, "Help me.I am at: http://maps.google.com/?q=" + lat + "," + lng, null, null);
+
+
 
                             String message = "http://maps.google.com/?q=" + lat + "," + lng;
                               sms.sendTextMessage(phoneNumber, null, message, null, null);
+
+                            System.out.println("2222222222222222");
+                            System.out.println("2222222222222222");
+                            System.out.println("2222222222222222");
+                            System.out.println("2222222222222222");
+                            System.out.println("2222222222222222");
+                            System.out.println("2222222222222222");
+
+
 
                         }
                         else

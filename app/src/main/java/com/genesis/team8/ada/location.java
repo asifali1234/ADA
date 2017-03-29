@@ -43,4 +43,6 @@ public class location {
     public void setYes(String yes) {
         this.yes = yes;
     }
+
+
 }

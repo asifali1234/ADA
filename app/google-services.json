@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "271892603834",
+    "firebase_url": "https://ad-a-bc752.firebaseio.com",
+    "project_id": "ad-a-bc752",
+    "storage_bucket": "ad-a-bc752.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271892603834:android:28f6d0dfcb3c7cbd",
+        "android_client_info": {
+          "package_name": "com.genesis.team8.ada"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271892603834-61h9726thu3tlunm2j0rlqjaspcodq8i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1E4mEVTlp68uZeglmsNMbqCsByC02n-E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

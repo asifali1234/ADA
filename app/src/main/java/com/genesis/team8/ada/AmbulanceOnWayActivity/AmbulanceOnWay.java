@@ -125,7 +125,7 @@ public class AmbulanceOnWay extends FragmentActivity implements OnMapReadyCallba
         }int n=1;
 
             Firebase.setAndroidContext(this);
-            String url="https://adaa-45b17.firebaseio.com/CurrentAmbulance/";
+            String url="https://ad-a-bc752.firebaseio.com/CurrentAmbulance/";
             final Firebase ref = new Firebase(url);
 
 
