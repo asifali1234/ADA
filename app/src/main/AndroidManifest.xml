@@ -67,7 +67,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAm7IvC5DpVPeKLTeX0DUT8tYOqHRaccrA" />
+            android:value="AIzaSyDiRUJVQfPBi5GFXlMmI6r8eEKuu0JNvtQ" />
 
         <activity
             android:name=".AmbulanceOnWayActivity.AmbulanceOnWay"

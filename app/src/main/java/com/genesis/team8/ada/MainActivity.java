@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -12,6 +13,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -34,6 +36,7 @@ import com.genesis.team8.ada.AnalyzeActivity.Analyze;
 import com.genesis.team8.ada.getContactActivity.GetContacts;
 import com.genesis.team8.ada.mapLocationsActivity.ImportantLocations;
 import com.genesis.team8.ada.newsActivity.NewsActivity;
+import com.genesis.team8.ada.service.AccidentService;
 import com.genesis.team8.ada.service.GPSTracker;
 import com.genesis.team8.ada.service.MyAlarmReceiver;
 import com.genesis.team8.ada.volley.AppController;
@@ -64,7 +67,7 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
             R.drawable.aaa,
             R.drawable.aaa,
             R.drawable.aaa,
-            R.drawable.aaa,
+
             R.drawable.aaa
 
 
@@ -73,7 +76,7 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
             R.string.hiiiiii,
             R.string.cont,
             R.string.Near,
-            R.string.Workshops,
+
             R.string.news
 
 
@@ -208,7 +211,24 @@ scheduleAlarm();
 
             String message="Help Me, I Have Met With An Accident http://maps.google.com/?q="+lat+","+lng;
            sms.sendTextMessage(phoneNumber, null, message, null, null);
+            String no="no";
 
+
+            System.out.println("message is being sent");
+
+            SharedPreferences details = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+            if (!no.equals(details.getString("number1", "no")))
+                sms.sendTextMessage(details.getString("number1", "no"), null, "Help me.I am at: http://maps.google.com/?q=" + lat + "," + lng, null, null);
+            if (!no.equals(details.getString("number2", "no")))
+                sms.sendTextMessage(details.getString("number2", "no"), null, "Help me.I am at: http://maps.google.com/?q=" + lat + "," + lng, null, null);
+            if (!no.equals(details.getString("number3", "no")))
+                sms.sendTextMessage(details.getString("number3", "no"), null, "Help me.I am at: http://maps.google.com/?q=" + lat + "," + lng, null, null);
+            if (!no.equals(details.getString("number4", "no")))
+                sms.sendTextMessage(details.getString("number4", "no"), null, "Help me.I am at: http://maps.google.com/?q=" + lat + "," + lng, null, null);
+            if (!no.equals(details.getString("number5", "no")))
+                sms.sendTextMessage(details.getString("number5", "no"), null, "Help me.I am at: http://maps.google.com/?q=" + lat + "," + lng, null, null);
 
             String y= "t";
             Firebase.setAndroidContext(this);
@@ -302,8 +322,8 @@ scheduleAlarm();
 
         BoomMenuButton bmb = (BoomMenuButton) actionBar.findViewById(R.id.bmb);
         bmb.setButtonEnum(ButtonEnum.Ham);
-        bmb.setPiecePlaceEnum(PiecePlaceEnum.HAM_5);
-        bmb.setButtonPlaceEnum(ButtonPlaceEnum.HAM_5);
+        bmb.setPiecePlaceEnum(PiecePlaceEnum.HAM_4);
+        bmb.setButtonPlaceEnum(ButtonPlaceEnum.HAM_4);
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
             HamButton.Builder builder = new HamButton.Builder()
                     .normalTextRes(getString())
@@ -324,7 +344,7 @@ scheduleAlarm();
 
                             }
                             if (index == 3) {
-                                map2(index);
+                                news(index);
                             }
                             if (index == 4) {
                                 news(index);

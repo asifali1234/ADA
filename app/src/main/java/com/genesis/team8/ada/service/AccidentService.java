@@ -106,10 +106,11 @@ public class AccidentService extends IntentService implements SensorEventListene
             }
         });*/
         Random rand;
-        int randomNum = 1 + (int)(Math.random() * ((1) + 1));
+        //int randomNum = 1 + (int)(Math.random() * ((1) + 1));
 
+        int randomNum=1;
 
-        if(randomNum == 2) {
+        if(randomNum == 1) {
             System.out.println("222222222222222222222222222222222222222222222222222222222222222222222222222");
 
             send2("hi");
@@ -246,6 +247,7 @@ public class AccidentService extends IntentService implements SensorEventListene
 
                             SharedPreferences details = PreferenceManager.getDefaultSharedPreferences(AccidentService.this);
                             SmsManager sms = SmsManager.getDefault();
+
                             if (!no.equals(details.getString("number1", "no")))
                                 sms.sendTextMessage(details.getString("number1", "no"), null, "Help me.I am at: http://maps.google.com/?q=" + lat + "," + lng, null, null);
                             if (!no.equals(details.getString("number2", "no")))
